@@ -1,4 +1,3 @@
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Calculator {
@@ -14,7 +13,6 @@ public class Calculator {
     }
 
     public static String calc(String userInput) throws Exception {
-        String result = "";
         String[] input = userInput.split(" ");
         if (input.length != 3) {
             throw new Exception("вы ввели неправильное число символов");
@@ -27,7 +25,7 @@ public class Calculator {
             if (number_1 > 10 || number_2 > 10) {
                 throw new Exception("Вы ввели число больше 10.");
             } else {
-             return result = calculated(number_1, number_2, operator);
+                return result = calculated(number_1, number_2, operator);
             }
         } catch (NumberFormatException e) {
             number_1 = romanToNumber(input[0]);
@@ -36,42 +34,39 @@ public class Calculator {
                 throw new Exception("Вы ввели недопустимый символ");
             } else {
                 result = calculated(number_1, number_2, operator);
-                String resultRoman = convertNumToRoman(Integer.parseInt(result));
-                return resultRoman;
+               return convertNumToRoman(Integer.parseInt(result));
             }
         }
     }
 
     static int romanToNumber(String roman) {
-        try {
-            if (roman.equals("I")) {
+        switch (roman) {
+            case "I":
                 return 1;
-            } else if (roman.equals("II")) {
+            case "II":
                 return 2;
-            } else if (roman.equals("III")) {
+            case "III":
                 return 3;
-            } else if (roman.equals("IV")) {
+            case "IV":
                 return 4;
-            } else if (roman.equals("V")) {
+            case "V":
                 return 5;
-            } else if (roman.equals("VI")) {
+            case "VI":
                 return 6;
-            } else if (roman.equals("VII")) {
+            case "VII":
                 return 7;
-            } else if (roman.equals("VIII")) {
+            case "VIII":
                 return 8;
-            } else if (roman.equals("IX")) {
+            case "IX":
                 return 9;
-            } else if (roman.equals("X")) {
+            case "X":
                 return 10;
-            }
-        } catch (InputMismatchException e) {
-            throw new InputMismatchException("Неверный формат данных");
+            default:
+                return -1;
         }
-        return -1;
     }
 
-    private static String convertNumToRoman(int numArabian) {
+    static String convertNumToRoman(int numArabian) {
         String[] roman = {"O", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX",
                 "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX", "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI", "XXXVII", "XXXVIII", "XXXIX", "XL",
                 "XLI", "XLII", "XLIII", "XLIV", "XLV", "XLVI", "XLVII", "XLVIII", "XLIX", "L", "LI", "LII", "LIII", "LIV", "LV", "LVI", "LVII", "LVIII", "LIX", "LX",
@@ -81,10 +76,10 @@ public class Calculator {
                 "XCI", "XCII", "XCIII", "XCIV", "XCV", "XCVI", "XCVII", "XCVIII", "XCIX", "C"
         };
         if (numArabian < 1) {
-            throw new ArithmeticException("в римской системе нет нуля и отрицательных чисел");
+            throw new ArithmeticException("в римской системе нет нуля или отрицательных чисел");
         }
-        final String s = roman[numArabian];
-        return s;
+        return roman[numArabian];
+
     }
 
     static String calculated(int a, int b, String operator) throws Exception {
